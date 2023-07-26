@@ -32,6 +32,9 @@ class MyApp extends StatelessWidget {
             foregroundColor: MaterialStateProperty.all(Colors.white),
           ),
         ),
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
+          backgroundColor: kprimaryColor,
+        ),
         textTheme: const TextTheme(
           bodyMedium: TextStyle(
             fontWeight: FontWeight.bold,
