@@ -28,11 +28,7 @@ class CustomBottomNavBar extends StatelessWidget {
           ),
           IconButton(
             onPressed: () {},
-            icon: const Icon(Icons.add),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.favorite),
+            icon: const Icon(Icons.group),
           ),
           IconButton(
             onPressed: () {},
