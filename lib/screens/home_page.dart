@@ -198,7 +198,7 @@ class _HomePageState extends State<HomePage>
                 child: _isSearching
                     ? Icon(Icons.wifi_tethering_rounded, color: color)
                     : Icon(Icons.wifi_tethering_rounded),
-                backgroundColor: Colors.white,
+                backgroundColor: kprimaryColor,
               );
             },
           ),

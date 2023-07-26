@@ -9,9 +9,12 @@ class CustomBottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: //grey box like spotify
-          BoxDecoration(
-        color: gradientColors[0].withOpacity(0.1),
+      decoration: BoxDecoration(
+        color: gradientColors[0].withOpacity(0.3),
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(4),
+          topRight: Radius.circular(4),
+        ),
       ),
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height * 0.12,
@@ -29,10 +32,6 @@ class CustomBottomNavBar extends StatelessWidget {
           IconButton(
             onPressed: () {},
             icon: const Icon(Icons.group),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.person),
           ),
         ],
       ),
