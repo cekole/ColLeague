@@ -1,5 +1,6 @@
 import 'package:col_league/constants/colors.dart';
 import 'package:col_league/screens/home_page.dart';
+import 'package:col_league/screens/profile_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -18,7 +19,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
         primaryColor: kprimaryColor,
+        scaffoldBackgroundColor: Colors.transparent,
         appBarTheme: AppBarTheme(
+          titleTextStyle: const TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: kprimaryColor,
+          ),
           backgroundColor: Colors.transparent,
           elevation: 0,
           foregroundColor: kprimaryColor,
@@ -43,7 +50,10 @@ class MyApp extends StatelessWidget {
         ),
       ),
       home: HomePage(),
-      routes: {},
+      routes: {
+        '/home': (context) => const HomePage(),
+        '/profile': (context) => const ProfilePage(),
+      },
     );
   }
 }
