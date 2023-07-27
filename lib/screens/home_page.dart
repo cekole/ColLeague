@@ -1,4 +1,5 @@
 import 'package:col_league/constants/colors.dart';
+import 'package:col_league/screens/profile_page.dart';
 import 'package:col_league/widgets/HomePage/recent_places.dart';
 import 'package:col_league/widgets/NavigationBar/custom_nav_bar.dart';
 import 'package:flutter/material.dart';
@@ -72,9 +73,32 @@ class _HomePageState extends State<HomePage>
                   actions: [
                     Padding(
                       padding: const EdgeInsets.only(right: 16.0),
-                      child: CircleAvatar(
-                        foregroundImage: NetworkImage(
-                            'https://avatars.githubusercontent.com/u/63546159?v=4'),
+                      child: GestureDetector(
+                        onTap: () {
+                          //Navigate to profile page with Animation
+
+                          Navigator.push(
+                            context,
+                            PageRouteBuilder(
+                              transitionDuration:
+                                  const Duration(milliseconds: 250),
+                              pageBuilder:
+                                  (context, animation, secondaryAnimation) =>
+                                      ProfilePage(),
+                              transitionsBuilder: (context, animation,
+                                  secondaryAnimation, child) {
+                                return FadeTransition(
+                                  opacity: animation,
+                                  child: child,
+                                );
+                              },
+                            ),
+                          );
+                        },
+                        child: CircleAvatar(
+                          foregroundImage: NetworkImage(
+                              'https://avatars.githubusercontent.com/u/63546159?v=4'),
+                        ),
                       ),
                     ),
                   ],
@@ -181,9 +205,8 @@ class _HomePageState extends State<HomePage>
           bottom: 0,
           child: CustomBottomNavBar(),
         ),
-        //FloatingActionButton in center b
         Align(
-          alignment: Alignment.bottomCenter - Alignment(0, 0.3),
+          alignment: Alignment.bottomRight - Alignment(0.1, 0.3),
           child: AnimatedBuilder(
             animation: _animationController,
             builder: (context, child) {
