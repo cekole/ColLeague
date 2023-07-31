@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
         ),
         iconButtonTheme: IconButtonThemeData(
           style: ButtonStyle(
-            foregroundColor: MaterialStateProperty.all(Colors.white),
+            foregroundColor: MaterialStateProperty.all(kprimaryColor),
           ),
         ),
         floatingActionButtonTheme: const FloatingActionButtonThemeData(
@@ -47,6 +47,19 @@ class MyApp extends StatelessWidget {
             fontWeight: FontWeight.bold,
             color: kprimaryColor,
           ),
+        ),
+        bottomSheetTheme: const BottomSheetThemeData(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+        ),
+        listTileTheme: const ListTileThemeData(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(8),
+            ),
+          ),
+          iconColor: kprimaryColor,
+          textColor: kprimaryColor,
         ),
       ),
       home: HomePage(),

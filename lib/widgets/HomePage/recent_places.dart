@@ -64,7 +64,6 @@ class RecentPlaces extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
-                          color: gradientColors[1],
                         ),
                       ),
                     ],
