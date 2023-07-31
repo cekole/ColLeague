@@ -1,13 +1,16 @@
 import 'package:col_league/constants/colors.dart';
 import 'package:col_league/screens/profile_page.dart';
+import 'package:col_league/widgets/HomePage/people_working_near.dart';
 import 'package:col_league/widgets/HomePage/recent_places.dart';
 import 'package:col_league/widgets/NavigationBar/custom_nav_bar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_map/plugin_api.dart';
 import "package:latlong2/latlong.dart";
+import 'package:map_launcher/map_launcher.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -114,85 +117,232 @@ class _HomePageState extends State<HomePage>
                           style: TextStyle(
                             fontSize: 21,
                             fontWeight: FontWeight.bold,
-                            color: gradientColors[1],
+                            color: kprimaryColor,
                           ),
-                        ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Popular Workspaces Near You',
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: gradientColors[1],
-                              ),
-                            ),
-                            SizedBox(
-                              height: 8,
-                            ),
-                            //map of popular places
-                            Container(
-                              height: 140,
-                              child: ListView.separated(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: 3,
-                                separatorBuilder: (context, index) {
-                                  return SizedBox(
-                                    width: 8,
-                                  );
-                                },
-                                itemBuilder: (context, index) {
-                                  return IgnorePointer(
-                                    child: SizedBox(
-                                      width: 140,
-                                      child: Column(
-                                        children: [
-                                          Expanded(
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
-                                              child: FlutterMap(
-                                                options: MapOptions(
-                                                  center: LatLng(51.5, -0.09),
-                                                  zoom: 14,
-                                                ),
-                                                children: [
-                                                  TileLayer(
-                                                    urlTemplate:
-                                                        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-                                                    subdomains: ['a', 'b', 'c'],
-
-                                                    //for markers
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                          Text(
-                                            'London',
-                                            style: TextStyle(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.bold,
-                                              color: gradientColors[1],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                          ],
                         ),
                         const SizedBox(
                           height: 16,
                         ),
                         //Recent Places You Worked At
                         RecentPlaces(),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        //People Working Now Near You
+                        PeopleWorkingNear(),
+
+                        //Online Groups You Can Join
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Online Groups You Can Join',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: kprimaryColor,
+                                  ),
+                                ),
+                                TextButton(
+                                  onPressed: () {},
+                                  child: Text(
+                                    'See All',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: kprimaryColor.withOpacity(0.5),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            SizedBox(
+                                height: 200,
+                                child: //GridView of Groups
+                                    GridView.builder(
+                                        padding: const EdgeInsets.all(0),
+                                        gridDelegate:
+                                            SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 4,
+                                          crossAxisSpacing: 10,
+                                          mainAxisSpacing: 10,
+                                        ),
+                                        itemCount: 6,
+                                        itemBuilder: (context, index) {
+                                          return GestureDetector(
+                                            onTap: () {
+                                              //show bottom sheet with group details
+                                              showModalBottomSheet(
+                                                context: context,
+                                                builder: (context) {
+                                                  return Container(
+                                                    height:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            0.6,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.only(
+                                                        topLeft:
+                                                            Radius.circular(
+                                                                16.0),
+                                                        topRight:
+                                                            Radius.circular(
+                                                                16.0),
+                                                      ),
+                                                      gradient: LinearGradient(
+                                                        colors: [
+                                                          gradientColors[1],
+                                                          gradientColors[0]
+                                                              .withOpacity(0.5),
+                                                        ],
+                                                        begin:
+                                                            Alignment.topCenter,
+                                                        end: Alignment
+                                                            .bottomCenter,
+                                                      ),
+                                                    ),
+                                                    child: ListView(
+                                                      children: [
+                                                        const SizedBox(
+                                                          height: 8,
+                                                        ),
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(16.0),
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
+                                                            children: [
+                                                              Text(
+                                                                'Group Name',
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize: 21,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  color:
+                                                                      kprimaryColor,
+                                                                ),
+                                                              ),
+                                                              //join button
+                                                              TextButton(
+                                                                onPressed:
+                                                                    () {},
+                                                                child: Text(
+                                                                  'Join',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontSize:
+                                                                        16,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    color: kprimaryColor
+                                                                        .withOpacity(
+                                                                            0.75),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        //GridView of Group Members
+                                                        SizedBox(
+                                                          height: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .height *
+                                                              0.6,
+                                                          child:
+                                                              GridView.builder(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(16),
+                                                            gridDelegate:
+                                                                SliverGridDelegateWithFixedCrossAxisCount(
+                                                              crossAxisCount: 3,
+                                                              crossAxisSpacing:
+                                                                  5,
+                                                              mainAxisSpacing:
+                                                                  5,
+                                                            ),
+                                                            itemCount: 6,
+                                                            itemBuilder:
+                                                                (context,
+                                                                    index) {
+                                                              return Column(
+                                                                children: [
+                                                                  Container(
+                                                                    height: 80,
+                                                                    width: 80,
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              10),
+                                                                      border: Border.all(
+                                                                          color:
+                                                                              kprimaryColor),
+                                                                      image:
+                                                                          DecorationImage(
+                                                                        image: NetworkImage(
+                                                                            'https://picsum.photos/200/300'),
+                                                                        fit: BoxFit
+                                                                            .cover,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  Text(
+                                                                    'Name',
+                                                                    style:
+                                                                        TextStyle(
+                                                                      fontSize:
+                                                                          16,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                      color:
+                                                                          kprimaryColor,
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              );
+                                                            },
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  );
+                                                },
+                                              );
+                                            },
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                color: Colors.white,
+                                                image: DecorationImage(
+                                                  image: NetworkImage(
+                                                      'https://picsum.photos/200/300'),
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        })),
+                          ],
+                        ),
                       ],
                     ),
                   ),
@@ -211,7 +361,7 @@ class _HomePageState extends State<HomePage>
             animation: _animationController,
             builder: (context, child) {
               final color = _colorTween.evaluate(_animationController);
-              return FloatingActionButton.small(
+              return FloatingActionButton(
                 onPressed: () {
                   setState(() {
                     _isSearching = !_isSearching;
@@ -221,7 +371,7 @@ class _HomePageState extends State<HomePage>
                 child: _isSearching
                     ? Icon(Icons.wifi_tethering_rounded, color: color)
                     : Icon(Icons.wifi_tethering_rounded),
-                backgroundColor: kprimaryColor,
+                backgroundColor: gradientColors[0],
               );
             },
           ),

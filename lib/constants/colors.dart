@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 const gradientColors = [
-  Color(0xFF003973),
-  Color(0xFFE5E5BE),
+  Color(0xFFabbaab),
+  Color(0xFFffffff),
 ];
-const kprimaryColor = Color(0xFFE5E5BE);
+const kprimaryColor = Color(0xFF485563);
